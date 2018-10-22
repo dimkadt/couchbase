@@ -30,13 +30,6 @@
                 "compareVersion": "1.6.1"
               },
               {
-                "forEach(clnode:nodes.nosqldb)": {
-                  "cleanup-node": {
-                    "id": "${@clnode.id}"
-                  }
-                }
-              },
-              {
                 "if (${response.compareResult} < 0)": {
                   "cmd": {
                     "nodeId": "${settings.masterId}",
@@ -44,6 +37,13 @@
                     "commands": [
                       "jem passwd set -p ${globals.pswd}"
                     ]
+                  }
+                }
+              },
+              {
+                "forEach(clnode:nodes.nosqldb)": {
+                  "cleanup-node": {
+                    "id": "${@clnode.id}"
                   }
                 }
               },
@@ -177,6 +177,7 @@
   ],
   "success": {
     "if (${response.compareResult} < 0)": {
+      "compareVersion": "1.6.1",
       "email": "Use the data below for admin access:<br/>Web Console: <a href='${nodes.nosqldb.first.url}/ui/index.html' target='_blank'>${nodes.nosqldb.first.url}</a><br/>User: ${globals.user}<br/>Password: ${globals.pswd}"
     }
   }
