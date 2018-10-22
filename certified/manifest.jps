@@ -27,8 +27,8 @@
             },
             "onInstall": [
               {
-					      "compareVersion": "1.6.1"
-				      },
+                "compareVersion": "1.6.1"
+              },
               {
                 "forEach(clnode:nodes.nosqldb)": {
                   "cleanup-node": {
@@ -37,7 +37,7 @@
                 }
               },
               {
-                "if (jelastic.system.service.GetVersion().version.split('-').shift() >= '5.5.4')": {
+                "if (${response.compareResult} < 0)": {
                   "cmd": {
                     "nodeId": "${settings.masterId}",
                     "user": "root",
@@ -120,11 +120,13 @@
               }
             ],
             "actions": {
-	      "compareVersion": {
-		{
-		  "script": "function compareVersions(a, b) {\n    a = a.split(\".\"); b = b.split(\".\");\n    for (var i = 0, l = Math.max(a.length, b.length), x, y; i < l; i++) {x = parseInt(a[i], 10) || 0; y = parseInt(b[i], 10) || 0; if (x != y) return x > y ? 1 : -1 }\n    return 0;\n}\n\nvar resp = jelastic.dev.scripting.Eval(\"appstore\", session, \"GetEngineVersion\");      \nvar engineVersion = resp.response.version;\n\nreturn { \n  result : 0, \n  compareResult : compareVersions(engineVersion, '${this}') \n};\n"
-		}
-	      },
+              "compareVersion": {
+                "script": [
+                  "function compareVersions(a, b) { a = a.split(\".\"); b = b.split(\".\"); for (var i = 0, l = Math.max(a.length, b.length), x, y; i < l; i++) {x = parseInt(a[i], 10) || 0; y = parseInt(b[i], 10) || 0; if (x != y) return x > y ? 1 : -1 } return 0; }",
+                  "var resp = jelastic.dev.scripting.Eval(\"appstore\", \"session\", \"GetEngineVersion\"); var engineVersion = resp.response.version;",
+                  "return { result : 0, compareResult : compareVersions(engineVersion, '${this}') };"
+                ]
+              },
               "add-node": {
                 "cmd[${this.id}]": {
                   "user": "root",
@@ -178,7 +180,7 @@
     }
   ],
   "success": {
-    "if (jelastic.system.service.GetVersion().version.split('-').shift() >= '5.5.4')": {
+    "if (${response.compareResult} < 0)": {
       "email": "Use the data below for admin access:<br/>Web Console: <a href='${nodes.nosqldb.first.url}/ui/index.html' target='_blank'>${nodes.nosqldb.first.url}</a><br/>User: ${globals.user}<br/>Password: ${globals.pswd}"
     }
   }
