@@ -30,7 +30,7 @@
                 "compareVersion": "1.6.1"
               },
               {
-                "if (${response.compareResult} > 0)": {
+                "if (${response.compareResult} >= 0)": {
                   "cmd": {
                     "nodeId": "${settings.masterId}",
                     "user": "root",
