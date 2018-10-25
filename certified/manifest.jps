@@ -71,10 +71,7 @@
                 }
               },
               {
-                "compareVersion": "1.6.1"
-              },
-              {
-                "if (${response.compareResult} >= 0)": {
+                "if if (!(!'${:}' && '${fn.compareEngine(1.6):}' > 0))": {
                   "cmd": {
                     "nodeId": "${settings.masterId}",
                     "user": "root",
@@ -124,9 +121,6 @@
               }
             ],
             "actions": {
-              "compareVersion": {
-                "script": "function compareVersions(a, b) {\n    a = a.split(\".\"); b = b.split(\".\");\n    for (var i = 0, l = Math.max(a.length, b.length), x, y; i < l; i++) {x = parseInt(a[i], 10) || 0; y = parseInt(b[i], 10) || 0; if (x != y) return x > y ? 1 : -1 }\n    return 0;\n}\n\nvar resp = jelastic.dev.scripting.Eval(\"appstore\", session, \"GetEngineVersion\");      \nvar engineVersion = resp.response.version;\n\nreturn { \n  result : 0, \n  compareResult : compareVersions(engineVersion, '${this}') \n};\n"
-              },
               "add-node": {
                 "cmd[${this.id}]": {
                   "user": "root",
