@@ -71,7 +71,7 @@
                 }
               },
               {
-                "if if (!(!'${:}' && '${fn.compareEngine(1.6):}' > 0))": {
+                "if (!(!'${:}' && '${fn.compareEngine(1.6):}' > 0))": {
                   "cmd": {
                     "nodeId": "${settings.masterId}",
                     "user": "root",
@@ -81,7 +81,7 @@
                   },
                   "return": {
                     "result": "success",
-                    "email": "## Use the data below for admin access: *Web Console: ${env.protocol}://${env.domain}/ui/index.html *User: ${globals.user} *Password: ${globals.pswd}"
+                    "email": "## Use the data below for admin access:\n * Web Console: ${env.protocol}://${env.domain}/ui/index.html * User: ${globals.user} * Password: ${globals.pswd}"
                   }
                 }
               }
