@@ -20,7 +20,7 @@
           },
           "jps": {
             "type": "update",
-            "name": "auto-cluster",
+            "name": "Couchbase Auto Scalable Cluster",
             "envName": "${env.envName}",
             "nodeGroupAlias": {
               "${targetNodes.nodeGroup}": "nosqldb"
