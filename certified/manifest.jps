@@ -81,7 +81,7 @@
                   },
                   "return": {
                     "result": "success",
-                    "email": "Use the data below for admin access:\n * Web Console: ${env.protocol}://${nodes.nosqldb.first.endpoints.domain}/ui/index.html\n * User: ${globals.user}\n * Password: ${globals.pswd}"
+                    "email": "Use the data below for admin access:\n * Web Console: ${env.protocol}://${nodes.nosqldb.first.adminUrl}/ui/index.html\n * User: ${globals.user}\n * Password: ${globals.pswd}"
                   }
                 }
               }
